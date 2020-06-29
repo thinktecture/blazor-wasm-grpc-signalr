@@ -1,11 +1,16 @@
+using System;
+using System.Linq;
+using AutoMapper;
+using ConfTool.Server.gRPC;
+using ConfTool.Server.Hubs;
+using ConfTool.Server.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
-using ConfTool.Server.gRPC;
 
 namespace ConfTool.Server
 {
@@ -22,6 +27,13 @@ namespace ConfTool.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddDbContext<ConferencesDbContext>(
+                options => options.UseInMemoryDatabase(databaseName: "ConfTool"));
+
+            services.AddSignalR();
+
             services.AddGrpc();
             services.AddResponseCompression(opts =>
             {
@@ -60,6 +72,8 @@ namespace ConfTool.Server
             {
                 endpoints.MapGrpcService<GreeterService>().EnableGrpcWeb();
                 endpoints.MapGrpcService<CounterService>().EnableGrpcWeb();
+
+                endpoints.MapHub<ConferencesHub>("/conferencesHub");
 
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
