@@ -23,6 +23,7 @@
     <ProjectReference Include="..\Shared\ConfTool.Shared.csproj" />
        
     <Protobuf Include="..\Shared\GreeterService.proto" GrpcServices="Client" Link="Proto\GreeterService.proto" Access="Internal" />
+    <Protobuf Include="..\Shared\CounterService.proto" GrpcServices="Client" Link="Proto\CounterService.proto" Access="Internal" />
   </ItemGroup>
     
 </Project>

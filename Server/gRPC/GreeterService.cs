@@ -1,10 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Grpc.Core;
 using GrpcGreeter;
 using Microsoft.Extensions.Logging;
 
-namespace ConfTool.Server
+namespace ConfTool.Server.gRPC
 {
     public class GreeterService : Greeter.GreeterBase
     {
