@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ConfTool.Server.Model
+namespace BlazorConfTool.Server.Model
 {
     public class Conference
     {

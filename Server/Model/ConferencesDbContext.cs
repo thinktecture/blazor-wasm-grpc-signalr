@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace ConfTool.Server.Model
+namespace BlazorConfTool.Server.Model
 {
     public class ConferencesDbContext : DbContext
     {

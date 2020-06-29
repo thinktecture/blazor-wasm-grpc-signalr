@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 
-namespace ConfTool.Server.Model
+namespace BlazorConfTool.Server.Model
 {
     public class DataGenerator
     {

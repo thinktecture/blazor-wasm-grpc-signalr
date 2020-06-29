@@ -1,6 +1,5 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using ConfTool.Client.Services;
 using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -15,8 +14,6 @@ namespace ConfTool.Client
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
-
-            builder.Services.AddScoped<ConferencesService>();
 
             //builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
