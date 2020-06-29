@@ -28,7 +28,6 @@
     <Protobuf Include="..\Shared\ConferencesService.proto" GrpcServices="Server" Link="Proto\ConferencesService.proto" />
   </ItemGroup>
 
-
   <ItemGroup>
     <Folder Include="gRPC\" />
     <Folder Include="Hubs\" />

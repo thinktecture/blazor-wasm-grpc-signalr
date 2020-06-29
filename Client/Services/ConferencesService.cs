@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Conference;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ConfTool.Client.Services
@@ -13,13 +14,16 @@ namespace ConfTool.Client.Services
     public class ConferencesService
     {
         private Conference.Conferences.ConferencesClient _client;
-        private readonly string _baseUrl = "https://localhost:5001/";
+        private IConfiguration _config;
+        private string _baseUrl;
         private HubConnection _hubConnection;
 
         public EventHandler ConferenceListChanged;
 
-        public ConferencesService(GrpcChannel channel)
+        public ConferencesService(IConfiguration config, GrpcChannel channel)
         {
+            _config = config;
+            _baseUrl = _config["BackendUrl"];
             _client = new Conference.Conferences.ConferencesClient(channel);
         }
 
