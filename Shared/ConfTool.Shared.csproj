@@ -3,10 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <Protobuf Include="GreeterService.proto" />
-  </ItemGroup>
     
   <ItemGroup>
     <PackageReference Include="Grpc.Net.Client" Version="2.29.0" />

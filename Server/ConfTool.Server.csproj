@@ -13,6 +13,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Client\ConfTool.Client.csproj" />
     <ProjectReference Include="..\Shared\ConfTool.Shared.csproj" />
+        
+    <Protobuf Include="..\Shared\GreeterService.proto" GrpcServices="Server" />
   </ItemGroup>
 
 

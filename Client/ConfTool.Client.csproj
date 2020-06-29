@@ -21,6 +21,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\ConfTool.Shared.csproj" />
+       
+    <Protobuf Include="..\Shared\GreeterService.proto" GrpcServices="Client" Access="Internal" />
   </ItemGroup>
-
+    
 </Project>
