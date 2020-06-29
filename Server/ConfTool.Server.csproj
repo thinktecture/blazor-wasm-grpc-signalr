@@ -3,23 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-    
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.0" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.29.0" />
-    <PackageReference Include="Grpc.AspNetCore.Web" Version="2.29.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Client\ConfTool.Client.csproj" />
     <ProjectReference Include="..\Shared\ConfTool.Shared.csproj" />
-        
-    <Protobuf Include="..\Shared\GreeterService.proto" GrpcServices="Server" Link="Proto\GreeterService.proto" />
-    <Protobuf Include="..\Shared\CounterService.proto" GrpcServices="Server" Link="Proto\CounterService.proto" />
   </ItemGroup>
 
 
-  <ItemGroup>
-    <Folder Include="gRPC\" />
-  </ItemGroup>
 </Project>
