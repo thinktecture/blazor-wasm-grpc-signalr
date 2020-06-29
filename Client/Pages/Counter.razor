@@ -1,45 +1,16 @@
 ﻿@page "/counter"
 
-@inject GrpcChannel Channel
+<h1>Counter</h1>
 
-@using Grpc.Core
-@using Count
+<p>Current count: @currentCount</p>
 
-<h1>Streaming Counter</h1>
-
-<p>Current value: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount" disabled="@(cts != null)">Start</button>
-<button class="btn btn-primary" @onclick="StopCount" disabled="@(cts == null)">Stop</button>
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
     private int currentCount = 0;
-    private CancellationTokenSource? cts;
 
-    private async Task IncrementCount()
+    private void IncrementCount()
     {
-        cts = new CancellationTokenSource();
-
-        var client = new Count.Counter.CounterClient(Channel);
-        var call = client.StartCounter(new CounterRequest() { Start = currentCount }, cancellationToken: cts.Token);
-
-        try
-        {
-            await foreach (var message in call.ResponseStream.ReadAllAsync())
-            {
-                currentCount = message.Count;
-                StateHasChanged();
-            }
-        }
-        catch (RpcException ex) when (ex.StatusCode == StatusCode.Cancelled)
-        {
-            // Ignore exception from cancellation
-        }
-    }
-
-    private void StopCount()
-    {
-        cts?.Cancel();
-        cts = null;
+        currentCount++;
     }
 }

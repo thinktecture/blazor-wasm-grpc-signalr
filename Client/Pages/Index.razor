@@ -1,19 +1,7 @@
 ﻿@page "/"
 
-@inject GrpcChannel Channel
-
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
 
-@helloMessage
-
-@code {
-    private string helloMessage;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var client = new GrpcGreeter.Greeter.GreeterClient(Channel);
-        helloMessage = (await client.SayHelloAsync(new GrpcGreeter.HelloRequest { Name = "DWX Home" })).Message;
-    }
-}
+<SurveyPrompt Title="How is Blazor working for you?" />

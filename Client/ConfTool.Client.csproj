@@ -10,20 +10,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="3.2.0" PrivateAssets="all" />
     <PackageReference Include="System.Net.Http.Json" Version="3.2.0" />
-    <PackageReference Include="Grpc.Net.Client" Version="2.29.0" />
-    <PackageReference Include="Grpc.Net.Client.Web" Version="2.29.0" />
-    <PackageReference Include="Google.Protobuf" Version="3.12.3" />
-    <PackageReference Include="Grpc.Tools" Version="2.30.0">
-    <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\ConfTool.Shared.csproj" />
-       
-    <Protobuf Include="..\Shared\GreeterService.proto" GrpcServices="Client" Link="Proto\GreeterService.proto" Access="Internal" />
-    <Protobuf Include="..\Shared\CounterService.proto" GrpcServices="Client" Link="Proto\CounterService.proto" Access="Internal" />
   </ItemGroup>
-    
+
 </Project>
