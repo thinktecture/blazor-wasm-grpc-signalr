@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Conference;
 
 namespace ConfTool.Server.Model
 {
@@ -6,10 +7,10 @@ namespace ConfTool.Server.Model
     {
         public AutoMapperProfile()
         {
-            CreateMap<Model.Conference, ConfTool.Shared.DTO.ConferenceOverview>();
-            CreateMap<ConfTool.Shared.DTO.ConferenceOverview, Model.Conference>();
-            CreateMap<Model.Conference, ConfTool.Shared.DTO.ConferenceDetails>();
-            CreateMap<ConfTool.Shared.DTO.ConferenceDetails, Model.Conference>();
+            CreateMap<Model.Conference, ConferenceOverview>();
+            CreateMap<ConferenceOverview, Model.Conference>();
+            //CreateMap<Model.Conference, ConfTool.Shared.DTO.ConferenceDetails>();
+            //CreateMap<ConfTool.Shared.DTO.ConferenceDetails, Model.Conference>();
         }
     }
 }

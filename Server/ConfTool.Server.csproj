@@ -24,12 +24,12 @@
         
     <Protobuf Include="..\Shared\GreeterService.proto" GrpcServices="Server" Link="Proto\GreeterService.proto" />
     <Protobuf Include="..\Shared\CounterService.proto" GrpcServices="Server" Link="Proto\CounterService.proto" />
+    <Protobuf Include="..\Shared\ConferencesService.proto" GrpcServices="Server" Link="Proto\ConferencesService.proto" />
   </ItemGroup>
 
 
   <ItemGroup>
     <Folder Include="gRPC\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Hubs\" />
     <Folder Include="Model\" />
   </ItemGroup>
