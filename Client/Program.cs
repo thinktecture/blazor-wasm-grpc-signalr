@@ -17,20 +17,13 @@ namespace ConfTool.Client
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddScoped<ConferencesService>();
-
-            //builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
+            
             builder.Services.AddSingleton(services =>
             {
-                // Get the service address from appsettings.json
                 var config = services.GetRequiredService<IConfiguration>();
                 var backendUrl = config["BackendUrl"];
 
-                // Create a channel with a GrpcWebHandler that is addressed to the backend server.
-                //
-                // GrpcWebText is used because server streaming requires it. If server streaming is not used in your app
-                // then GrpcWeb is recommended because it produces smaller messages.
-                var httpHandler = new GrpcWebHandler(GrpcWebMode.GrpcWebText, new HttpClientHandler());
+                var httpHandler = new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler());
 
                 return GrpcChannel.ForAddress(backendUrl, new GrpcChannelOptions { HttpHandler = httpHandler });
             });
