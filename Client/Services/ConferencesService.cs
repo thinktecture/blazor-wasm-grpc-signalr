@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Conference;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ConfTool.Client.Services
 {
@@ -26,6 +27,7 @@ namespace ConfTool.Client.Services
         {
             _hubConnection = new HubConnectionBuilder()
                 .WithUrl(new Uri(new Uri(_baseUrl), "conferencesHub"))
+                .AddMessagePackProtocol()
                 .Build();
 
             _hubConnection.On("NewConferenceAdded", () =>

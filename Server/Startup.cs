@@ -32,7 +32,7 @@ namespace ConfTool.Server
             services.AddDbContext<ConferencesDbContext>(
                 options => options.UseInMemoryDatabase(databaseName: "ConfTool"));
 
-            services.AddSignalR();
+            services.AddSignalR().AddMessagePackProtocol();
 
             services.AddGrpc();
             services.AddResponseCompression(opts =>
