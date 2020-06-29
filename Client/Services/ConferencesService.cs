@@ -1,28 +1,25 @@
-﻿using BlazorConfTool.Shared.DTO;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.SignalR.Client;
-using Sotsera.Blazor.Oidc;
+﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Conference;
+using Grpc.Net.Client;
+using Microsoft.AspNetCore.SignalR.Client;
 
-namespace BlazorConfTool.Client.Services
+namespace ConfTool.Client.Services
 {
     public class ConferencesService
     {
-        private OidcHttpClient _httpClient;
-        private readonly string _baseUrl = "https://localhost:5003/";
-        private string _conferencesUrl;
-        private string _statisticsUrl;
+        private Conference.Conferences.ConferencesClient _client;
+        private readonly string _baseUrl = "https://localhost:5001/";
         private HubConnection _hubConnection;
 
         public EventHandler ConferenceListChanged;
 
-        public ConferencesService(OidcHttpClient httpClient)
+        public ConferencesService(GrpcChannel channel)
         {
-            _httpClient = httpClient;
-            _conferencesUrl = new Uri(new Uri(_baseUrl), "api/conferences/").ToString();
-            _statisticsUrl = new Uri(new Uri(_baseUrl), "api/statistics/").ToString();
+            _client = new Conference.Conferences.ConferencesClient(channel);
         }
 
         public async Task Init()
@@ -41,11 +38,14 @@ namespace BlazorConfTool.Client.Services
 
         public async Task<List<ConferenceOverview>> ListConferences()
         {
-            var result = await _httpClient.GetJsonAsync<List<ConferenceOverview>>(_conferencesUrl);
+            var result = await _client.ListConferencesAsync(new ListConferencesRequest());
             
-            return result;
+            var confs = result.Conferences.ToList();
+
+            return confs;
         }
 
+        /*
         public async Task<ConferenceDetails> GetConferenceDetails(Guid id)
         {
             var result = await _httpClient.GetJsonAsync<ConferenceDetails>(_conferencesUrl + id);
@@ -67,5 +67,6 @@ namespace BlazorConfTool.Client.Services
 
             return result;
         }
+        */
     }
 }

@@ -17,13 +17,18 @@
     <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\ConfTool.Shared.csproj" />
        
-    <Protobuf Include="..\Shared\GreeterService.proto" GrpcServices="Client" Link="Proto\GreeterService.proto" Access="Internal" />
-    <Protobuf Include="..\Shared\CounterService.proto" GrpcServices="Client" Link="Proto\CounterService.proto" Access="Internal" />
+    <Protobuf Include="..\Shared\GreeterService.proto" GrpcServices="Client" Link="Proto\GreeterService.proto" />
+    <Protobuf Include="..\Shared\CounterService.proto" GrpcServices="Client" Link="Proto\CounterService.proto" />
+    <Protobuf Include="..\Shared\ConferencesService.proto" GrpcServices="Client" Link="Proto\ConferencesService.proto" />
   </ItemGroup>
     
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
 </Project>

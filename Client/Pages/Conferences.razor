@@ -2,14 +2,11 @@
 
 @implements IDisposable
 
-@attribute [Authorize]
-
-@using DTO = BlazorConfTool.Shared.DTO
-@using BlazorConfTool.Client.Services
-
+@using ConfTool.Client.Services
+@using Conference
+ 
 @inject NavigationManager _navigation
 @inject ConferencesService _conferencesService
-@inject IToastService _toastService
 
 <h1>Conferences</h1>
 
@@ -40,7 +37,7 @@ else
     </table>
 }
 @code {
-    private IEnumerable<DTO.ConferenceOverview> _conferences;
+    private IEnumerable<ConferenceOverview> _conferences;
 
     protected override async Task OnInitializedAsync()
     {
@@ -53,7 +50,7 @@ else
 
     private async void HandleConferenceUpdates(object sender, EventArgs args)
     {
-        _toastService.ShowInfo("Conference list changed.");
+        //_toastService.ShowInfo("Conference list changed.");
 
         Console.WriteLine("###SignalR - NEW conference added!");
         _conferences = await ListConferences();
@@ -61,12 +58,12 @@ else
         StateHasChanged();
     }
 
-    private async Task<List<DTO.ConferenceOverview>> ListConferences()
+    private async Task<List<ConferenceOverview>> ListConferences()
     {
         return await _conferencesService.ListConferences();
     }
 
-    private void LoadDetails(Guid id)
+    private void LoadDetails(string id)
     {
         _navigation.NavigateTo("conferences/show/" + id);
     }
