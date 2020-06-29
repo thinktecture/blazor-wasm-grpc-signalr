@@ -1,7 +1,7 @@
-﻿using BlazorConfTool.Shared.DTO;
+﻿using ConfTool.Shared.DTO;
 using FluentValidation;
 
-namespace BlazorConfTool.Shared
+namespace ConfTool.Shared
 {
     public class ConferenceDetailsValidator : AbstractValidator<ConferenceDetails>
     {
