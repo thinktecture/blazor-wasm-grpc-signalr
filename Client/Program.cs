@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ConfTool.Client.Services;
@@ -18,6 +19,13 @@ namespace ConfTool.Client
 
             builder.Services.AddScoped<ConferencesService>();
             
+            builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+            builder.Services.AddOidcAuthentication(options =>
+            {
+                builder.Configuration.Bind("Oidc", options.ProviderOptions);
+            });
+
             builder.Services.AddSingleton(services =>
             {
                 var config = services.GetRequiredService<IConfiguration>();
