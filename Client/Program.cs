@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using ConfTool.Client.Services;
 using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,23 +19,29 @@ namespace ConfTool.Client
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddScoped<ConferencesService>();
-            
-            builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.AddOidcAuthentication(options =>
             {
                 builder.Configuration.Bind("Oidc", options.ProviderOptions);
             });
 
-            builder.Services.AddSingleton(services =>
+            builder.Services.AddHttpClient("ConfTool.ServerAPI", client => 
+                client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
+                    .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
+            
+            builder.Services.AddScoped(services => services.GetRequiredService<IHttpClientFactory>().CreateClient("ConfTool.ServerAPI"));
+
+            // TODO: This should be a Singleton, right?
+            builder.Services.AddScoped(services =>
             {
-                var config = services.GetRequiredService<IConfiguration>();
-                var backendUrl = config["BackendUrl"];
+                var baseAddressMessageHandler = services.GetRequiredService<BaseAddressAuthorizationMessageHandler>();
+                baseAddressMessageHandler.InnerHandler = new HttpClientHandler();
+                var grpcWebHandler = new GrpcWebHandler(GrpcWebMode.GrpcWeb, baseAddressMessageHandler);
 
-                var httpHandler = new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler());
-
-                return GrpcChannel.ForAddress(backendUrl, new GrpcChannelOptions { HttpHandler = httpHandler });
+                return GrpcChannel.ForAddress(builder.HostEnvironment.BaseAddress, new GrpcChannelOptions { HttpHandler = grpcWebHandler });
             });
+
+            builder.Services.AddApiAuthorization();
 
             await builder.Build().RunAsync();
         }

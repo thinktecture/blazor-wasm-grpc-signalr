@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ConfTool.Server
 {
@@ -23,8 +24,6 @@ namespace ConfTool.Server
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -32,9 +31,17 @@ namespace ConfTool.Server
             services.AddDbContext<ConferencesDbContext>(
                 options => options.UseInMemoryDatabase(databaseName: "ConfTool"));
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = "https://demo.identityserver.io";
+                    options.Audience = "interactive.public";
+                });
+
             services.AddSignalR().AddMessagePackProtocol();
 
             services.AddGrpc();
+            
             services.AddResponseCompression(opts =>
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
@@ -67,6 +74,9 @@ namespace ConfTool.Server
             app.UseRouting();
 
             app.UseGrpcWeb();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

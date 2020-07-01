@@ -1,5 +1,9 @@
 ﻿@page "/"
 
+@using System
+@using Grpc.Core
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
 @inject GrpcChannel Channel
 
 <h1>Hello, world!</h1>
@@ -15,7 +19,22 @@ Welcome to your new app.
 
     protected override async Task OnInitializedAsync()
     {
-        var client = new GrpcGreeter.Greeter.GreeterClient(Channel);
-        helloMessage = (await client.SayHelloAsync(new GrpcGreeter.HelloRequest { Name = "DWX Home" })).Message;
+        try
+        {
+            var client = new GrpcGreeter.Greeter.GreeterClient(Channel);
+            helloMessage = (await client.SayHelloAsync(new GrpcGreeter.HelloRequest { Name = "DWX Home" })).Message;            
+        }
+        catch (RpcException rpcException)
+        {
+            // TODO: This does not work as there is no inner exception
+            var tokenException = rpcException.InnerException as AccessTokenNotAvailableException;
+            if(tokenException != null) tokenException.Redirect();
+
+            Console.WriteLine("***EXCEPTION: " + rpcException);
+        }
+        catch (AccessTokenNotAvailableException tokenException)
+        {
+            tokenException.Redirect();
+        }
     }
 }

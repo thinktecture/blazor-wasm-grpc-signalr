@@ -1,9 +1,12 @@
 ﻿@page "/conferences"
 
-@implements IDisposable
-
+@using Microsoft.AspNetCore.Authorization
 @using ConfTool.Client.Services
 @using Conference
+
+@attribute [Authorize]
+
+@implements IDisposable
  
 @inject NavigationManager _navigation
 @inject ConferencesService _conferencesService
