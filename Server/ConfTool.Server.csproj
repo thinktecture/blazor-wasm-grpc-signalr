@@ -23,11 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Client\ConfTool.Client.csproj" />
-    <ProjectReference Include="..\Shared\ConfTool.Shared.csproj" />
-        
-    <Protobuf Include="..\Shared\Protos\GreeterService.proto" GrpcServices="Server" Link="Protos\GreeterService.proto" />
-    <Protobuf Include="..\Shared\Protos\CounterService.proto" GrpcServices="Server" Link="Protos\CounterService.proto" />
-    <Protobuf Include="..\Shared\Protos\ConferencesService.proto" GrpcServices="Server" Link="Protos\ConferencesService.proto" />
+    <ProjectReference Include="..\Shared\ConfTool.Shared.csproj" />   
   </ItemGroup>
 
   <ItemGroup>

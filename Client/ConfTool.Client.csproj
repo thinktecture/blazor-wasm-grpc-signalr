@@ -26,10 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\ConfTool.Shared.csproj" />
-       
-    <Protobuf Include="..\Shared\Protos\GreeterService.proto" GrpcServices="Client" Link="Protos\GreeterService.proto" />
-    <Protobuf Include="..\Shared\Protos\CounterService.proto" GrpcServices="Client" Link="Protos\CounterService.proto" />
-    <Protobuf Include="..\Shared\Protos\ConferencesService.proto" GrpcServices="Client" Link="Protos\ConferencesService.proto" />
   </ItemGroup>
     
   <ItemGroup>

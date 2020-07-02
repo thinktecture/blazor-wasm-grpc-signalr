@@ -14,6 +14,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+    
+  <ItemGroup>
+    <Protobuf Include="Protos\GreeterService.proto" GrpcServices="Both" />
+    <Protobuf Include="Protos\CounterService.proto" GrpcServices="Both" />
+    <Protobuf Include="Protos\ConferencesService.proto" GrpcServices="Both" />
+  </ItemGroup>
+    
   <ItemGroup>
     <Folder Include="DTO\" />
   </ItemGroup>
