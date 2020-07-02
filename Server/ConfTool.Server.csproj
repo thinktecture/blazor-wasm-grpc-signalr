@@ -31,7 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="gRPC\" />
     <Folder Include="Hubs\" />
     <Folder Include="Model\" />
     <Folder Include="Controllers\" />
