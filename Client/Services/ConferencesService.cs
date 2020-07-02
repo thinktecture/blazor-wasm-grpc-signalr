@@ -3,17 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Conference;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using ProtoBuf.Grpc.Client;
+using Shared.Contracts;
 
 namespace ConfTool.Client.Services
 {
     public class ConferencesService
     {
-        private Conference.Conferences.ConferencesClient _client;
+        private IConferencesService _client;
         private IConfiguration _config;
         private string _baseUrl;
         private HubConnection _hubConnection;
@@ -24,14 +24,13 @@ namespace ConfTool.Client.Services
         {
             _config = config;
             _baseUrl = _config["BackendUrl"];
-            _client = new Conference.Conferences.ConferencesClient(channel);
+            _client = channel.CreateGrpcService<IConferencesService>();
         }
 
         public async Task Init()
         {
             _hubConnection = new HubConnectionBuilder()
                 .WithUrl(new Uri(new Uri(_baseUrl), "conferencesHub"))
-                .AddMessagePackProtocol()
                 .Build();
 
             _hubConnection.On("NewConferenceAdded", () =>
@@ -42,13 +41,11 @@ namespace ConfTool.Client.Services
             await _hubConnection.StartAsync();
         }
 
-        public async Task<List<ConferenceOverview>> ListConferences()
+        public async Task<IEnumerable<ConfTool.Shared.DTO.ConferenceOverview>> ListConferences()
         {
-            var result = await _client.ListConferencesAsync(new ListConferencesRequest());
-            
-            var confs = result.Conferences.ToList();
+            var result = await _client.ListConferencesAsync();
 
-            return confs;
+            return result;
         }
 
         /*

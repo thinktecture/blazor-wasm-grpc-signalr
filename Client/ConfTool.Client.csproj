@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="protobuf-net.Grpc" Version="1.0.90" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.0" PrivateAssets="all" />
@@ -26,9 +27,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Shared\ConfTool.Shared.csproj" />
        
-    <Protobuf Include="..\Shared\GreeterService.proto" GrpcServices="Client" Link="Proto\GreeterService.proto" />
-    <Protobuf Include="..\Shared\CounterService.proto" GrpcServices="Client" Link="Proto\CounterService.proto" />
-    <Protobuf Include="..\Shared\ConferencesService.proto" GrpcServices="Client" Link="Proto\ConferencesService.proto" />
+    <Protobuf Include="..\Shared\Protos\GreeterService.proto" GrpcServices="Client" Link="Protos\GreeterService.proto" />
+    <Protobuf Include="..\Shared\Protos\CounterService.proto" GrpcServices="Client" Link="Protos\CounterService.proto" />
+    <Protobuf Include="..\Shared\Protos\ConferencesService.proto" GrpcServices="Client" Link="Protos\ConferencesService.proto" />
   </ItemGroup>
     
   <ItemGroup>

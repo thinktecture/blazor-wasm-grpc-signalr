@@ -2,7 +2,7 @@
 
 @using Microsoft.AspNetCore.Authorization
 @using ConfTool.Client.Services
-@using Conference
+@using ConfTool.Shared.DTO
 
 @attribute [Authorize]
 
@@ -61,12 +61,12 @@ else
         StateHasChanged();
     }
 
-    private async Task<List<ConferenceOverview>> ListConferences()
+    private async Task<IEnumerable<ConferenceOverview>> ListConferences()
     {
         return await _conferencesService.ListConferences();
     }
 
-    private void LoadDetails(string id)
+    private void LoadDetails(Guid id)
     {
         _navigation.NavigateTo("conferences/show/" + id);
     }

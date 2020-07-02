@@ -5,6 +5,7 @@
   </PropertyGroup>
     
   <ItemGroup>
+    <PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.0.90" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="3.1.5" />
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
@@ -24,9 +25,9 @@
     <ProjectReference Include="..\Client\ConfTool.Client.csproj" />
     <ProjectReference Include="..\Shared\ConfTool.Shared.csproj" />
         
-    <Protobuf Include="..\Shared\GreeterService.proto" GrpcServices="Server" Link="Proto\GreeterService.proto" />
-    <Protobuf Include="..\Shared\CounterService.proto" GrpcServices="Server" Link="Proto\CounterService.proto" />
-    <Protobuf Include="..\Shared\ConferencesService.proto" GrpcServices="Server" Link="Proto\ConferencesService.proto" />
+    <Protobuf Include="..\Shared\Protos\GreeterService.proto" GrpcServices="Server" Link="Protos\GreeterService.proto" />
+    <Protobuf Include="..\Shared\Protos\CounterService.proto" GrpcServices="Server" Link="Protos\CounterService.proto" />
+    <Protobuf Include="..\Shared\Protos\ConferencesService.proto" GrpcServices="Server" Link="Protos\ConferencesService.proto" />
   </ItemGroup>
 
   <ItemGroup>

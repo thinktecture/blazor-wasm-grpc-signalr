@@ -10,13 +10,13 @@ using Microsoft.Extensions.Logging;
 
 namespace ConfTool.Server.gRPC
 {
-    public class ConferencesService : Conferences.ConferencesBase
+    public class ConferencesService2 : Conferences.ConferencesBase
     {
         private readonly ILogger<GreeterService> _logger;
         private readonly ConferencesDbContext _conferencesDbContext;
         private readonly IMapper _mapper;
 
-        public ConferencesService(ILogger<GreeterService> logger, ConferencesDbContext conferencesDbContext, IMapper mapper)
+        public ConferencesService2(ILogger<GreeterService> logger, ConferencesDbContext conferencesDbContext, IMapper mapper)
         {
             _logger = logger;
             _conferencesDbContext = conferencesDbContext;

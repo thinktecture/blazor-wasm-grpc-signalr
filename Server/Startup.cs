@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using ProtoBuf.Grpc.Server;
 
 namespace ConfTool.Server
 {
@@ -41,7 +42,8 @@ namespace ConfTool.Server
             services.AddSignalR().AddMessagePackProtocol();
 
             services.AddGrpc();
-            
+            services.AddCodeFirstGrpc(config => { config.ResponseCompressionLevel = System.IO.Compression.CompressionLevel.Optimal; });
+
             services.AddResponseCompression(opts =>
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
