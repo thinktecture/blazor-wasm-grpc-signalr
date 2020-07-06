@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.Threading.Tasks;
@@ -9,5 +10,7 @@ namespace Shared.Contracts
     public interface IConferencesService
     {
         Task<IEnumerable<ConferenceOverview>> ListConferencesAsync();
+        Task<ConferenceDetails> GetConferenceDetailsAsync(Guid id);
+        Task<ConferenceDetails> AddNewConferenceAsync(ConferenceDetails conference);
     }
 }

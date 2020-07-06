@@ -1,7 +1,6 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.SignalR.Client;
@@ -48,22 +47,22 @@ namespace ConfTool.Client.Services
             return result;
         }
 
+        
+        public async Task<ConfTool.Shared.DTO.ConferenceDetails> GetConferenceDetails(Guid id)
+        {
+            var result = await  _client.GetConferenceDetailsAsync(id);
+
+            return result;
+        }
+
+        public async Task<ConfTool.Shared.DTO.ConferenceDetails> AddConference(ConfTool.Shared.DTO.ConferenceDetails conference)
+        {
+            var result = await _client.AddNewConferenceAsync(conference);
+
+            return result;
+        }
+
         /*
-        public async Task<ConferenceDetails> GetConferenceDetails(Guid id)
-        {
-            var result = await _httpClient.GetJsonAsync<ConferenceDetails>(_conferencesUrl + id);
-
-            return result;
-        }
-
-        public async Task<ConferenceDetails> AddConference(ConferenceDetails conference)
-        {
-            var result = await _httpClient.PostJsonAsync<ConferenceDetails>(
-                _conferencesUrl, conference);
-
-            return result;
-        }
-
         public async Task<dynamic> GetStatistics()
         {
             var result = await _httpClient.GetJsonAsync<dynamic>(_statisticsUrl);

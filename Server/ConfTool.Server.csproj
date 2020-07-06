@@ -5,7 +5,7 @@
   </PropertyGroup>
     
   <ItemGroup>
-    <PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.0.113" />
+    <PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.0.118" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="3.1.5" />
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
