@@ -24,15 +24,7 @@ Welcome to your new app.
             var client = new GrpcGreeter.Greeter.GreeterClient(Channel);
             helloMessage = (await client.SayHelloAsync(new GrpcGreeter.HelloRequest { Name = "DWX Home" })).Message;            
         }
-        catch (RpcException rpcException)
-        {
-            // TODO: This does not work as there is no inner exception
-            var tokenException = rpcException.InnerException as AccessTokenNotAvailableException;
-            if(tokenException != null) tokenException.Redirect();
-
-            Console.WriteLine("***EXCEPTION: " + rpcException);
-        }
-        catch (AccessTokenNotAvailableException tokenException)
+        catch (RpcException rpcException) when (rpcException.Status.DebugException is AccessTokenNotAvailableException tokenException)
         {
             tokenException.Redirect();
         }

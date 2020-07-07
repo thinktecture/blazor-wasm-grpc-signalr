@@ -30,6 +30,7 @@ namespace ConfTool.Client.Services
         {
             _hubConnection = new HubConnectionBuilder()
                 .WithUrl(new Uri(new Uri(_baseUrl), "conferencesHub"))
+                .WithAutomaticReconnect()
                 .Build();
 
             _hubConnection.On("NewConferenceAdded", () =>
