@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConfTool.Shared.Contracts;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
 using ProtoBuf.Grpc.Client;
-using Shared.Contracts;
 
 namespace ConfTool.Client.Services
 {
@@ -51,7 +51,7 @@ namespace ConfTool.Client.Services
         
         public async Task<ConfTool.Shared.DTO.ConferenceDetails> GetConferenceDetails(Guid id)
         {
-            var result = await  _client.GetConferenceDetailsAsync(id);
+            var result = await  _client.GetConferenceDetailsAsync(new ConfTool.Shared.DTO.ConferenceDetailsRequest { ID = id });
 
             return result;
         }

@@ -1,6 +1,6 @@
 ﻿using System;
+using ConfTool.Shared.Contracts;
 using ProtoBuf.Grpc.Reflection;
-using Shared.Contracts;
 
 namespace ConfTool.Tools
 {

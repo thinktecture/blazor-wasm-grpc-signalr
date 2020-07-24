@@ -4,13 +4,13 @@ using System.ServiceModel;
 using System.Threading.Tasks;
 using ConfTool.Shared.DTO;
 
-namespace Shared.Contracts
+namespace ConfTool.Shared.Contracts
 {
     [ServiceContract]
     public interface IConferencesService
     {
         Task<IEnumerable<ConferenceOverview>> ListConferencesAsync();
-        Task<ConferenceDetails> GetConferenceDetailsAsync(Guid id);
+        Task<ConferenceDetails> GetConferenceDetailsAsync(ConferenceDetailsRequest request);
         Task<ConferenceDetails> AddNewConferenceAsync(ConferenceDetails conference);
     }
 }

@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using ConfTool.Server.Hubs;
 using ConfTool.Server.Model;
+using ConfTool.Shared.Contracts;
 using ConfTool.Shared.DTO;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Shared.Contracts;
 
 namespace ConfTool.Server.gRPC
 {
@@ -39,9 +39,9 @@ namespace ConfTool.Server.gRPC
 
         }
 
-        public async Task<ConferenceDetails> GetConferenceDetailsAsync(Guid id)
+        public async Task<ConferenceDetails> GetConferenceDetailsAsync(ConferenceDetailsRequest request)
         {
-            var conferenceDetails = await _conferencesDbContext.Conferences.FindAsync(id);
+            var conferenceDetails = await _conferencesDbContext.Conferences.FindAsync(request.ID);
 
             if (conferenceDetails == null)
             {
