@@ -18,15 +18,45 @@ namespace ConfTool.Server.Model
                 }
 
                 context.Conferences.AddRange(
-                     new Conference
+                    new Conference
                     {
                         ID = Guid.NewGuid(),
-                        Title = "Developer Week 20",
-                        City = "Nürnberg",
+                        Title = "BASTA! Spring 2020",
+                        City = "Frankfurt am Main",
                         Country = "Germany",
-                        DateFrom = new DateTime(2020, 11, 2),
-                        DateTo = new DateTime(2020, 11, 6),
-                        Url = "https://www.developer-week.de/"
+                        DateFrom = new DateTime(2020, 2, 24),
+                        DateTo = new DateTime(2020, 2, 28),
+                        Url = "https://www.basta.net/"
+                    },
+                    new Conference
+                    {
+                        ID = Guid.NewGuid(),
+                        Title = "IJS 2020 London",
+                        City = "London",
+                        Country = "England",
+                        DateFrom = new DateTime(2020, 4, 20),
+                        DateTo = new DateTime(2020, 4, 22),
+                        Url = "https://javascript-conference.com/london/"
+                    }, 
+                    new Conference
+                    {
+                        ID = Guid.NewGuid(),
+                        Title = "Global Azure Bootcamp 2020",
+                        City = "Hamburg",
+                        Country = "Germany",
+                        DateFrom = new DateTime(2020, 4, 25),
+                        DateTo = new DateTime(2020, 4, 25),
+                        Url = "https://sessionize.com/global-azure-bootcamp-hamburg/"
+                    },
+                    new Conference
+                    {
+                        ID = Guid.NewGuid(),
+                        Title = "DevOpsCon 2020 Berlin",
+                        City = "Berlin",
+                        Country = "Germany",
+                        DateFrom = new DateTime(2020, 6, 8),
+                        DateTo = new DateTime(2020, 6, 11),
+                        Url = "https://devopscon.io/berlin-de/"
                     },
                     new Conference
                     {
@@ -41,32 +71,12 @@ namespace ConfTool.Server.Model
                     new Conference
                     {
                         ID = Guid.NewGuid(),
-                        Title = "DWX Home",
-                        City = "Neustadt am Main",
-                        Country = "Germany",
-                        DateFrom = new DateTime(2020, 6, 19),
-                        DateTo = new DateTime(2020, 7, 3),
-                        Url = "https://www.developer-week.de/dwx-home/#/"
-                    },
-                    new Conference
-                    {
-                        ID = Guid.NewGuid(),
-                        Title = "Global Azure Bootcamp 2020",
-                        City = "Hamburg",
-                        Country = "Germany",
-                        DateFrom = new DateTime(2020, 4, 25),
-                        DateTo = new DateTime(2020, 4, 25),
-                        Url = "https://sessionize.com/global-azure-bootcamp-hamburg/"
-                    },
-                    new Conference
-                    {
-                        ID = Guid.NewGuid(),
-                        Title = "BASTA! Spring 2020",
-                        City = "Frankfurt am Main",
-                        Country = "Germany",
-                        DateFrom = new DateTime(2020, 2, 24),
-                        DateTo = new DateTime(2020, 2, 28),
-                        Url = "https://www.basta.net/"
+                        Title = "IJS 2020 NYC",
+                        City = "New York City",
+                        Country = "USA",
+                        DateFrom = new DateTime(2020, 9, 28),
+                        DateTo = new DateTime(2020, 10, 1),
+                        Url = "https://javascript-conference.com/new-york/"
                     });
 
                 context.SaveChanges();
