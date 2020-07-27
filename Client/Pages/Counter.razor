@@ -5,6 +5,8 @@
 @using Grpc.Core
 @using Count
 
+@attribute [Authorize]
+
 <h1>Streaming Counter</h1>
 
 <p>Current value: @currentCount</p>

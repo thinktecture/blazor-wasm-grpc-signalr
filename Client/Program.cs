@@ -27,6 +27,9 @@ namespace ConfTool.Client
                 builder.Configuration.Bind("Oidc", options.ProviderOptions);
             });
 
+            builder.Services.AddHttpClient("ConfTool.ServerAPI.Anon", client => 
+                client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+
             builder.Services.AddHttpClient("ConfTool.ServerAPI", client => 
                 client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
                     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
