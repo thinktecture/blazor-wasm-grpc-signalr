@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ConfTool.Server.Controllers
 {
-    [Authorize]
+    [Authorize("api")]
     [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]

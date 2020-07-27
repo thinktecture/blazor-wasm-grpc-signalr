@@ -1,36 +1,38 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using ConfTool.Shared.Contracts;
-using Grpc.Net.Client;
+﻿using ConfTool.Shared.DTO;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
-using ProtoBuf.Grpc.Client;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
 
 namespace ConfTool.Client.Services
 {
     public class ConferencesService
     {
-        private IConferencesService _client;
         private IConfiguration _config;
+        private HttpClient _httpClient;
         private string _baseUrl;
+        private string _conferencesUrl;
+        private string _statisticsUrl;
         private HubConnection _hubConnection;
 
         public EventHandler ConferenceListChanged;
 
-        public ConferencesService(IConfiguration config, GrpcChannel channel)
+        public ConferencesService(IConfiguration config, HttpClient httpClient)
         {
             _config = config;
+            _httpClient = httpClient;
             _baseUrl = _config["BackendUrl"];
-            _client = channel.CreateGrpcService<IConferencesService>();
+            _conferencesUrl = new Uri(new Uri(_baseUrl), "api/conferences/").ToString();
+            _statisticsUrl = new Uri(new Uri(_baseUrl), "api/statistics/").ToString();
         }
 
         public async Task Init()
         {
             _hubConnection = new HubConnectionBuilder()
                 .WithUrl(new Uri(new Uri(_baseUrl), "conferencesHub"))
-                .WithAutomaticReconnect()
                 .Build();
 
             _hubConnection.On("NewConferenceAdded", () =>
@@ -41,35 +43,33 @@ namespace ConfTool.Client.Services
             await _hubConnection.StartAsync();
         }
 
-        public async Task<IEnumerable<ConfTool.Shared.DTO.ConferenceOverview>> ListConferences()
+        public async Task<List<ConferenceOverview>> ListConferences()
         {
-            var result = await _client.ListConferencesAsync();
+            var result = await _httpClient.GetFromJsonAsync<List<ConferenceOverview>>(_conferencesUrl);
+            
+            return result;
+        }
+
+        public async Task<ConferenceDetails> GetConferenceDetails(Guid id)
+        {
+            var result = await _httpClient.GetFromJsonAsync<ConferenceDetails>(_conferencesUrl + id);
 
             return result;
         }
 
-        
-        public async Task<ConfTool.Shared.DTO.ConferenceDetails> GetConferenceDetails(Guid id)
+        public async Task<ConferenceDetails> AddConference(ConferenceDetails conference)
         {
-            var result = await  _client.GetConferenceDetailsAsync(new ConfTool.Shared.DTO.ConferenceDetailsRequest { ID = id });
+            var result = await (await _httpClient.PostAsJsonAsync<ConferenceDetails>(_conferencesUrl, conference))
+                .Content.ReadFromJsonAsync<ConferenceDetails>();
 
             return result;
         }
 
-        public async Task<ConfTool.Shared.DTO.ConferenceDetails> AddConference(ConfTool.Shared.DTO.ConferenceDetails conference)
-        {
-            var result = await _client.AddNewConferenceAsync(conference);
-
-            return result;
-        }
-
-        /*
         public async Task<dynamic> GetStatistics()
         {
             var result = await _httpClient.GetFromJsonAsync<dynamic>(_statisticsUrl);
 
             return result;
         }
-        */
     }
 }

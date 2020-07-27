@@ -13,6 +13,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using ProtoBuf.Grpc.Server;
+using Microsoft.AspNetCore.Authorization;
+using IdentityServer4.AccessTokenValidation;
+using FluentValidation.AspNetCore;
+using ConfTool.Shared.Validation;
 
 namespace ConfTool.Server
 {
@@ -32,13 +36,25 @@ namespace ConfTool.Server
             services.AddDbContext<ConferencesDbContext>(
                 options => options.UseInMemoryDatabase(databaseName: "ConfTool"));
 
+            services.AddMvc()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ConferenceDetailsValidator>());
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
                     options.Authority = "https://demo.identityserver.io";
-                    options.Audience = "interactive.public";
+                    options.Audience = "api";
                 });
 
+            services.AddAuthorization(config =>
+             {
+                 config.AddPolicy("api", builder =>
+                 {
+                     builder.RequireAuthenticatedUser();
+                     builder.RequireScope("api");
+                 });
+             });
+             
             services.AddSignalR().AddMessagePackProtocol();
 
             services.AddGrpc();
