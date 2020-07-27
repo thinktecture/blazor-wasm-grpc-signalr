@@ -1,31 +1,10 @@
 ﻿@page "/"
 
-@using Grpc.Core
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+<h1>ConfTool</h1>
 
-@inject GrpcChannel Channel
+Welcome to your simple conference management tool.
 
-<h1>Hello, world!</h1>
+<Collapsible Collapsed="true">
+    <h3>Cool!</h3>
+</Collapsible>
 
-Welcome to your new app.
-
-<p>
-@helloMessage
-</p>
-
-@code {
-    private string helloMessage;
-
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-            var client = new GrpcGreeter.Greeter.GreeterClient(Channel);
-            helloMessage = (await client.SayHelloAsync(new GrpcGreeter.HelloRequest { Name = "DWX Home" })).Message;            
-        }
-        catch (RpcException rpcException) when (rpcException.Status.DebugException is AccessTokenNotAvailableException tokenException)
-        {
-            tokenException.Redirect();
-        }
-    }
-}

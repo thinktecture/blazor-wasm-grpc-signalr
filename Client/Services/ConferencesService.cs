@@ -66,7 +66,7 @@ namespace ConfTool.Client.Services
         /*
         public async Task<dynamic> GetStatistics()
         {
-            var result = await _httpClient.GetJsonAsync<dynamic>(_statisticsUrl);
+            var result = await _httpClient.GetFromJsonAsync<dynamic>(_statisticsUrl);
 
             return result;
         }

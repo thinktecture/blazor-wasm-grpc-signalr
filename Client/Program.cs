@@ -1,6 +1,7 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Blazored.Toast;
 using ConfTool.Client.Services;
 using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
@@ -19,6 +20,7 @@ namespace ConfTool.Client
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddScoped<ConferencesService>();
+            builder.Services.AddScoped<CountriesService>();
 
             builder.Services.AddOidcAuthentication(options =>
             {
@@ -30,6 +32,10 @@ namespace ConfTool.Client
                     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
             
             builder.Services.AddScoped(services => services.GetRequiredService<IHttpClientFactory>().CreateClient("ConfTool.ServerAPI"));
+
+            builder.Services.AddAlerts();
+
+            builder.Services.AddBlazoredToast();
 
             // TODO: This should be a Singleton, right?
             builder.Services.AddScoped(services =>
